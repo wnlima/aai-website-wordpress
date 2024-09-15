@@ -1,0 +1,30 @@
+version: '3.8'
+services:
+  wp-db:
+    image: mysql:5.7
+    container_name: mysql
+    ports:
+      - 3306:3306
+    restart: always
+    environment:
+      MYSQL_DATABASE: aai_wp_001
+      MYSQL_USER: aai_wp001
+      MYSQL_PASSWORD: BjtfdsEvdfGlyarJ2#mIw
+      MYSQL_ROOT_PASSWORD: fdfd87f9#ds#$dgKldyd80gydnf09
+    volumes:
+      - ./db_data:/var/lib/mysql
+
+  wordpress:
+     image: wordpress:latest
+     container_name: wordpress
+     ports:
+       - 8090:80
+     restart: always
+     environment:
+      WORDPRESS_DB_HOST: wp-db:3306
+      WORDPRESS_DB_USER: aai_wp001
+      WORDPRESS_DB_PASSWORD: BjtfdsEvdfGlyarJ2#mIw
+      WORDPRESS_DB_NAME: aai_wp_001
+     volumes:
+      - ./wp:/var/www/html
+      - ./php.ini:/usr/local/etc/php/conf.d/uploads.ini
